@@ -1,0 +1,21 @@
+<mat-nav-list>
+  <mat-list-item  (click)=browse(data.path)  (contextmenu)="onContextMenu($event)" *ngFor="let data  of listdata |async  ">
+    <mat-icon matListIcon>folder</mat-icon>
+    <a  (click)=browse(data.path) matLine  (dblclick)=browse(data.path)> {{data.name}} </a>
+    <button   mat-icon-button >
+      <mat-icon>info</mat-icon>
+    </button>
+  </mat-list-item>
+</mat-nav-list>
+
+<div style="visibility: hidden; position: fixed"
+     [style.left]="contextMenuPosition.x"
+     [style.top]="contextMenuPosition.y"
+     [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item >Delete</button>
+    <button mat-menu-item  >Rename</button>
+  </ng-template>
+</mat-menu>

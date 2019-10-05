@@ -1,0 +1,12 @@
+
+<mat-toolbar class="toolbar" color="primary">
+  <span><button (click)="goBack()" mat-raised-button  [disabled]="isBackDisabled" mat-button><i class="material-icons">arrow_back</i></button></span>
+  <span><button (click)="add(type[0])" mat-button><i class="material-icons">note_add</i></button></span>
+  <span><button (click)="add(type[1])" mat-button><i class="material-icons">create_new_folder</i></button></span>
+  <span><button (click)="add(type[2])" mat-button><i class="material-icons">file_download</i></button></span>
+  <span><button (click)="add(type[3])" mat-button><i class="material-icons">file_upload</i></button></span>
+  <span> <mat-checkbox (change)="sethidden($event)" >Hidden Files</mat-checkbox></span>
+</mat-toolbar>
+
+
+
