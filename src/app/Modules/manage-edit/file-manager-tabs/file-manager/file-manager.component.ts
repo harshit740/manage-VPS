@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {FilemanagerService} from '../../Services/filemanager.service';
-
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {FilemanagerService} from '../../../../Services/filemanager.service';
 @Component({
   selector: 'app-file-manager',
   templateUrl: './file-manager.component.html',
@@ -21,11 +20,12 @@ export class FileManagerComponent implements OnInit {
     let isHidden;
     this.getFileList(this.basePath, isHidden = false);
   }
-async  getFileList(path, isHidden) {
+
+  async  getFileList(path, isHidden) {
     const options = {path, isHidden};
     this.currentpath = path;
     console.log(this.previousPathQueue);
-    this.data = await this.fileservice.listdata(options);
+    this.data = await this.fileservice.listdata(options)
   }
 
   onShowHidden($event) {
