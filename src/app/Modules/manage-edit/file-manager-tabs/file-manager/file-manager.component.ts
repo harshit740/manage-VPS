@@ -25,11 +25,12 @@ export class FileManagerComponent implements OnInit {
     const options = {path, isHidden};
     this.currentpath = path;
     console.log(this.previousPathQueue);
-    this.data = await this.fileservice.listdata(options)
+    this.fileservice.listdata(options).subscribe( res =>
+      this.data  = res
+    );
   }
 
   onShowHidden($event) {
-    console.log($event);
     this.isHidden = $event.isHidden;
     this.getFileList(this.currentpath, $event.isHidden, );
   }

@@ -9,3 +9,6 @@ table {
   font-size: 14px;
   width: 100%;
 }
+.mat-column-select {
+  overflow: initial;
+}

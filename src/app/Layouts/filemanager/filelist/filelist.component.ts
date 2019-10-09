@@ -1,22 +1,23 @@
 import {
   AfterViewInit,
   Component,
-  ContentChild,
   EventEmitter,
-  Input, OnChanges,
-  OnInit,
+  Input, OnChanges, OnInit,
   Output,
-  QueryList,
   ViewChild
 } from '@angular/core';
-import {MatColumnDef, MatHeaderRowDef, MatMenuTrigger, MatPaginator, MatRowDef, MatTable, MatTableDataSource} from '@angular/material';
+import {
+  MatMenuTrigger, MatTableDataSource
+} from '@angular/material';
 import {MatSort} from '@angular/material/sort';
-import {$e} from 'codelyzer/angular/styles/chars';
+import {Data} from '@angular/router';
+import {SelectionModel} from '@angular/cdk/collections';
+
 
 export interface Data {
   name: string;
   path: string;
-  isFile: string;
+  isFile: boolean;
   ext: string;
   lastModified: number;
   birthtime: number;
@@ -28,7 +29,7 @@ export interface Data {
   styleUrls: ['./filelist.component.css']
 })
 
-export class FilelistComponent implements OnInit   {
+export class FilelistComponent implements OnInit  ,  OnChanges    {
 
   constructor() {
   }
@@ -39,8 +40,9 @@ export class FilelistComponent implements OnInit   {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   contextMenu: MatMenuTrigger;
   contextMenuPosition = {x: '0px', y: '0px'};
-  displayedColumns: string[] = ['name', 'lastModified', 'birthtime', ];
-
+  displayedColumns: string[] = ['select', 'name', 'lastModified', 'birthtime', ];
+  dataSource = new MatTableDataSource(this.listdata);
+  selection = new SelectionModel<Data>(true, []);
 
   onContextMenu(event: MouseEvent) {
     event.preventDefault();
@@ -51,23 +53,49 @@ export class FilelistComponent implements OnInit   {
   }
 
   ngOnInit() {
+    console.log(this.selection.selected);
+  }
+  ngOnChanges(): void {
+    this.dataSource = new MatTableDataSource(this.listdata);
+    this.dataSource.sort = this.sort;
+    this.selection.clear();
   }
 
-
-  browse(path) {
-    this.refresh.emit(path);
+  browse(element, $event: MouseEvent) {
+    $event.stopPropagation();
+    if (element.isFile !== true) {
+      this.refresh.emit(element.path);
+    }
   }
 
-  sortData($event) {
-    console.log($event);
-  }
 
   applyFilter($event) {
-    console.log(this.listdata);
-    this.listdata = this.listdata.filter($event.target.value.trim().toLowerCase());
+    this.dataSource.filter = $event.target.value.trim().toLowerCase() ;
   }
-}
 
-function compare(a: number | string, b: number | string, isAsc: boolean) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+      this.selection.clear() :
+      this.dataSource.data.forEach(row => this.selection.select(row));
+  }
+
+  /** The label for the checkbox on the passed row */
+  checkboxLabel(row?: Data): string {
+    if (!row) {
+      return `${this.isAllSelected() ? 'select' : 'deselect'} all`;
+    }
+    return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${row.position + 1}`;
+  }
+
+  deleteSelected() {
+    console.log(this.selection.selected);
+  }
 }
