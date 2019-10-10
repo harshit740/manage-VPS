@@ -4,7 +4,8 @@
   <span><button (click)="add(type[0])" mat-button><i class="material-icons">note_add</i></button></span>
   <span><button (click)="add(type[1])" mat-button><i class="material-icons">create_new_folder</i></button></span>
   <span><button (click)="add(type[3])" mat-button><i class="material-icons">file_upload</i></button></span>
-  <span> <mat-checkbox (change)="sethidden($event)" >Hidden Files</mat-checkbox></span>
+  <span><button   (click)="newTab()" mat-button><i class="material-icons">note_add</i></button></span>
+  <span> <mat-checkbox (change)="sethidden($event)" mat-button ><i class="material-icons">remove_red_eye</i> </mat-checkbox></span>
 </mat-toolbar>
 
 

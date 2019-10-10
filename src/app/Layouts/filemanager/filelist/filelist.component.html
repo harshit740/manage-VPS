@@ -1,15 +1,20 @@
 
-
-<mat-toolbar class="toolbar" color="primary">
+<mat-toolbar class="" color="primary">
   <span><button [disabled]="selection.selected.length <= 0" (click)="deleteSelected()"  mat-button><i class="material-icons">delete</i></button></span>
   <span><button [disabled]="selection.selected.length <= 0"  mat-button><i class="material-icons">file_copy</i></button></span>
   <span><button [disabled]="selection.selected.length <= 0"  mat-button><i class="material-icons">file_download</i></button></span>
-  <span><mat-form-field>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Filter">
-</mat-form-field></span>
+  <span>
+    <mat-form-field>
+  <label>
+<input matInput (keyup)="applyFilter($event)" placeholder="Filter">
+</label>
+</mat-form-field>
+  </span>
 </mat-toolbar>
-<table  (contextmenu)="onContextMenu($event)"  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <!-- Checkbox Column -->
+
+<mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
+
+<table [matSortActive]="loading"  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"
@@ -54,15 +59,15 @@
   </tr>
 </table>
 
-
 <div style="visibility: hidden; position: fixed"
      [style.left]="contextMenuPosition.x"
      [style.top]="contextMenuPosition.y"
      [matMenuTriggerFor]="contextMenu">
-</div>
+
 <mat-menu #contextMenu="matMenu">
   <ng-template matMenuContent let-item="item">
     <button mat-menu-item >Delete</button>
     <button mat-menu-item  >Rename</button>
   </ng-template>
 </mat-menu>
+</div>

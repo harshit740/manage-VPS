@@ -9,6 +9,6 @@ export class FilemanagerService {
   constructor(private http: HttpClient) { }
 
   listdata(options) {
-    return this.http.post('http://localhost:3000/filemanager/', options);
+    return this.http.post('http://192.168.43.213:3000/filemanager/', options);
   }
 }

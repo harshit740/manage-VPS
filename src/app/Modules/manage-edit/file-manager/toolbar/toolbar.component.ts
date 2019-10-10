@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from './dialog-box/dialog-box.component';
+import {TabService} from '../../../../Services/tab.service';
 
 @Component({
   selector: 'app-toolbar',
@@ -9,7 +10,7 @@ import {DialogBoxComponent} from './dialog-box/dialog-box.component';
 })
 
 export class ToolbarComponent implements OnInit {
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, private tabService: TabService) {}
 
   type = ['File', 'Folder', 'Download', 'Upload'];
 
@@ -42,6 +43,9 @@ export class ToolbarComponent implements OnInit {
           dialogRef.afterClosed().subscribe(result => {
       console.log(result);
     });
+  }
+  newTab() {
+    this.tabService.addTabs({title: 'NewTab2', path: 'sf'});
   }
 
 }

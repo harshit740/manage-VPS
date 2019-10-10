@@ -12,3 +12,9 @@ table {
 .mat-column-select {
   overflow: initial;
 }
+.sticky {
+  top: 7%;
+  position: fixed;
+  z-index: 0;
+  width: 100%;
+}

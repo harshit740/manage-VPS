@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   EventEmitter,
   Input, OnChanges, OnInit,
@@ -12,6 +11,7 @@ import {
 import {MatSort} from '@angular/material/sort';
 import {Data} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
+import {TabService} from '../../../Services/tab.service';
 
 
 export interface Data {
@@ -31,17 +31,18 @@ export interface Data {
 
 export class FilelistComponent implements OnInit  ,  OnChanges    {
 
-  constructor() {
+  constructor(private tabService: TabService) {
   }
 
   @Output() refresh = new EventEmitter<string>();
   @Input('listdata') listdata: Data[];
+  @Input('loading') loading: boolean;
   @ViewChild(MatMenuTrigger, {static: true})
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   contextMenu: MatMenuTrigger;
   contextMenuPosition = {x: '0px', y: '0px'};
-  displayedColumns: string[] = ['select', 'name', 'lastModified', 'birthtime', ];
-  dataSource = new MatTableDataSource(this.listdata);
+  dataSource;
+  displayedColumns: string[] = ['select','name', 'lastModified', 'birthtime', ];
   selection = new SelectionModel<Data>(true, []);
 
   onContextMenu(event: MouseEvent) {
@@ -53,12 +54,12 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
   }
 
   ngOnInit() {
-    console.log(this.selection.selected);
+
   }
   ngOnChanges(): void {
-    this.dataSource = new MatTableDataSource(this.listdata);
-    this.dataSource.sort = this.sort;
-    this.selection.clear();
+       this.dataSource = new MatTableDataSource(this.listdata);
+       this.dataSource.sort = this.sort;
+       this.selection.clear();
   }
 
   browse(element, $event: MouseEvent) {
@@ -67,7 +68,6 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
       this.refresh.emit(element.path);
     }
   }
-
 
   applyFilter($event) {
     this.dataSource.filter = $event.target.value.trim().toLowerCase() ;
@@ -98,4 +98,5 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
   deleteSelected() {
     console.log(this.selection.selected);
   }
+
 }
