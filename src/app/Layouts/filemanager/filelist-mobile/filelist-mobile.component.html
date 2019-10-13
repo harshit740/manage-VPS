@@ -6,7 +6,7 @@
     <span>
     <mat-form-field>
   <label>
-<input (keyup)="applyFilter($event)" matInput  placeholder="Filter">
+<input disabled="{{sortedData.length === 0 && loading}}" (keyup)="applyFilter($event)" matInput  placeholder="Filter">
 </label>
 </mat-form-field>
   </span>
@@ -16,7 +16,7 @@
 <mat-divider></mat-divider>
 <mat-progress-spinner  style="margin-left: 40%"   *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-spinner>
 
-    <mat-accordion  multi="true">
+    <mat-accordion  *ngIf="!loading && sortedData" multi="true">
     <mat-expansion-panel style="align-items: center" *ngFor="let file of sortedData ; trackBy:trackByName">
     <mat-expansion-panel-header style="align-items: center">
       <mat-panel-title (click)="browse(file,$event)">
@@ -37,5 +37,9 @@ Last Moified {{file.lastModified |date}}
 Created On {{file.birthtime |date}}
       </a>    </mat-expansion-panel>
     </mat-accordion>
-
-
+    <div *ngIf="sortedData.length === 0 && !loading" style="align-content: center">
+      <h3>Empety Foolder Brooo </h3>
+      <i class="material-icons">
+        folder_open
+      </i>
+    </div>
