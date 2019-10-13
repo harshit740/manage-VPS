@@ -16,8 +16,8 @@
 <mat-divider></mat-divider>
 <mat-progress-spinner  style="margin-left: 40%"   *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-spinner>
 
-    <mat-accordion *ngIf="!loading" multi="true">
-    <mat-expansion-panel style="align-items: center" *ngFor="let file of sortedData ">
+    <mat-accordion  multi="true">
+    <mat-expansion-panel style="align-items: center" *ngFor="let file of sortedData ; trackBy:trackByName">
     <mat-expansion-panel-header style="align-items: center">
       <mat-panel-title (click)="browse(file,$event)">
         <button   mat-icon-button >

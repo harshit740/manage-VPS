@@ -35,6 +35,10 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
     }
   }
 
+  trackByName(index, item) {
+    return item.name;
+  }
+
   applyFilter($event) {
     if ($event.target.value === '') {
       this.sortedData = this.listData;
