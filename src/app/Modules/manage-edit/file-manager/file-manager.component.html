@@ -1,5 +1,5 @@
 <div>
-  <app-toolbar  class="" [loading]="loading" [isBackDisabled]="isBackenabled()" (backevent)="onGoback()"
+  <app-toolbar   [loading]="loading" [isBackDisabled]="isBackenabled()" (backevent)="onGoback()"
                (showHidden)="onShowHidden($event)"></app-toolbar>
   <mat-tab-group headerPosition="above"    [selectedIndex]="selectedIndex" (selectedTabChange)="onTabChange($event)">
     <mat-tab [disabled]="loading" label="{{tab.title}}" *ngFor="let tab of tabs |async">

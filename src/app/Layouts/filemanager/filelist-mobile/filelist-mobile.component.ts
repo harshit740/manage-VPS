@@ -44,13 +44,16 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
       this.sortedData = this.listData;
     } else {
       const s = $event.target.value.toLowerCase().trim();
-      this.sortedData = [];
-      this.listData.forEach(data => {
-        const name = data.name.toLowerCase().trim()
+     // this.sortedData = [];
+      this.sortedData =  this.listData.filter(obj => {
+        return obj.name.toLowerCase().trim().indexOf(s) !== -1;
+      });
+     /* this.listData.forEach(data => {
+        const name = data.name.toLowerCase().trim();
         if (name.includes(s)) {
           this.sortedData.push(data);
         }
-      });
+      }); */
     }
   }
 }

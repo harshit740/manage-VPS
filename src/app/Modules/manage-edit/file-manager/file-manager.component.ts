@@ -60,8 +60,8 @@ export class FileManagerComponent implements OnInit {
   onTabChange($event: MatTabChangeEvent) {
     this.selectedIndex = $event.index;
     if (this.tabs.getValue()[$event.index].data.length === 0) {
-      let isHidden;
-      this.getFileList(this.tabs.getValue()[this.selectedIndex].basePath, isHidden = false);
+      console.log(this.tabs.getValue()[$event.index].data.length)
+      this.getFileList(this.tabs.getValue()[this.selectedIndex].currentPath, this.tabs.getValue()[this.selectedIndex].isHidden);
     }
   }
 
