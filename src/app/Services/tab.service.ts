@@ -18,8 +18,8 @@ export class TabService {
   Tabs = [
    {
       title: 'Tab1',
-     basePath: '/home/harshit',
-     currentPath: '/home/harshit',
+     basePath: '/home',
+     currentPath: '/home',
      previousPathQueue: [],
       data: [],
     isHidden: false,
@@ -31,16 +31,13 @@ export class TabService {
   addTabs(newTab) {
     this.Tabs.push(  {
       title: 'Tab2',
-      basePath: '/home/harshit',
-      currentPath: '/home/harshit',
+      basePath: '/home',
+      currentPath: '/home',
       previousPathQueue: [],
       data: [],
       isHidden: false,
     });
     this.TabBehaviourSubject.next(this.Tabs);
     this.TabSelectedIndex.next(this.Tabs.length);
-  }
-  getTabs() {
-
   }
 }

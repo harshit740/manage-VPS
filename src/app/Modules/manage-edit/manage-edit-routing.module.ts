@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
 import { ManageEditComponent } from './manage-edit.component';
 
 const routes: Routes = [

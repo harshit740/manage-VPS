@@ -1,4 +1,6 @@
+<div class="sticky">
 
+<mat-progress-bar  style="width: 100%"   *ngIf="loading" mode="query" color="warn"></mat-progress-bar>
 <mat-toolbar class="" color="primary">
   <span><button [disabled]="selection.selected.length <= 0" (click)="deleteSelected()"  mat-button><i class="material-icons">delete</i></button></span>
   <span><button [disabled]="selection.selected.length <= 0"  mat-button><i class="material-icons">file_copy</i></button></span>
@@ -11,10 +13,9 @@
 </mat-form-field>
   </span>
 </mat-toolbar>
+</div>
 
-<mat-progress-bar *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-bar>
-
-<table [matSortActive]="loading"  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+<table  mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="select">
     <th mat-header-cell *matHeaderCellDef>
       <mat-checkbox (change)="$event ? masterToggle() : null"

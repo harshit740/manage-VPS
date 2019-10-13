@@ -1,7 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, HostListener, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {DialogBoxComponent} from './dialog-box/dialog-box.component';
 import {TabService} from '../../../../Services/tab.service';
+import {$e} from 'codelyzer/angular/styles/chars';
 
 @Component({
   selector: 'app-toolbar',
@@ -18,15 +19,17 @@ export class ToolbarComponent implements OnInit {
   @Output() showHidden = new EventEmitter<object>();
   @Output() backevent = new  EventEmitter();
   @Input()   isBackDisabled: boolean;
+  @Input() loading: boolean;
 
   ngOnInit() {
   }
 
-  sethidden($event) {
-    if ( $event.checked === true) {
+   sethidden($event) {
+    const checked =  $event.checked;
+    if ( checked === true) {
       this.showHidden.emit({isHidden: true});
     } else {
-      this.showHidden.emit({isHidden: false});
+       this.showHidden.emit({isHidden: false});
     }
   }
   goBack() {

@@ -19,7 +19,7 @@ import { TextEditorComponent } from './Layouts/editor/text-editor/text-editor.co
   declarations: [
     AppComponent,
     MainNavComponent,
-    TextEditorComponent
+    TextEditorComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +36,6 @@ import { TextEditorComponent } from './Layouts/editor/text-editor/text-editor.co
   ],
   providers: [],
   exports: [
-
   ],
   bootstrap: [AppComponent]
 })

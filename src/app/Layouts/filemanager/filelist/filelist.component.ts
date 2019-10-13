@@ -1,17 +1,19 @@
 import {
+  AfterViewInit, ChangeDetectorRef,
   Component,
-  EventEmitter,
+  EventEmitter, HostListener,
   Input, OnChanges, OnInit,
   Output,
   ViewChild
 } from '@angular/core';
 import {
-  MatMenuTrigger, MatTableDataSource
+  MatMenuTrigger, MatPaginator, MatPaginatorIntl, MatTableDataSource
 } from '@angular/material';
 import {MatSort} from '@angular/material/sort';
 import {Data} from '@angular/router';
 import {SelectionModel} from '@angular/cdk/collections';
 import {TabService} from '../../../Services/tab.service';
+import {FilemanagerService} from '../../../Services/filemanager.service';
 
 
 export interface Data {
@@ -30,20 +32,23 @@ export interface Data {
 })
 
 export class FilelistComponent implements OnInit  ,  OnChanges    {
+  private   pageLength = 30;
 
-  constructor(private tabService: TabService) {
+  constructor(private tabService: TabService , private  fileservice: FilemanagerService , private ref: ChangeDetectorRef) {
   }
 
-  @Output() refresh = new EventEmitter<string>();
-  @Input('listdata') listdata: Data[];
-  @Input('loading') loading: boolean;
+  @Output() refresh = new EventEmitter<{}>();
+  @Input() listdata: Data[];
+  @Input() loading: boolean;
+  @Input() listdataLenght: number;
   @ViewChild(MatMenuTrigger, {static: true})
   @ViewChild(MatSort, {static: true}) sort: MatSort;
   contextMenu: MatMenuTrigger;
   contextMenuPosition = {x: '0px', y: '0px'};
-  dataSource;
-  displayedColumns: string[] = ['select','name', 'lastModified', 'birthtime', ];
+  displayedColumns: string[] = ['select', 'name', 'lastModified', 'birthtime', ];
   selection = new SelectionModel<Data>(true, []);
+  paginator: MatPaginator = new MatPaginator(new MatPaginatorIntl(), this.ref);
+  dataSource ;
 
   onContextMenu(event: MouseEvent) {
     event.preventDefault();
@@ -57,15 +62,15 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
 
   }
   ngOnChanges(): void {
-       this.dataSource = new MatTableDataSource(this.listdata);
-       this.dataSource.sort = this.sort;
-       this.selection.clear();
+    this.dataSource = new MatTableDataSource(this.listdata);
+    this.dataSource.sort = this.sort;
+    this.selection.clear();
   }
 
   browse(element, $event: MouseEvent) {
     $event.stopPropagation();
     if (element.isFile !== true) {
-      this.refresh.emit(element.path);
+      this.refresh.emit({path: element.path, name: element.name});
     }
   }
 
@@ -98,5 +103,27 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
   deleteSelected() {
     console.log(this.selection.selected);
   }
+  @HostListener('window:scroll', ['$event'])
+  onscroll(event) {
+    const elem = event.currentTarget;
+    console.log(elem);
+    if ((elem.innerHeight + elem.pageYOffset + 200) >= document.body.offsetHeight && this.pageLength <= this.listdataLenght) {
+      this.pageLength += 30;
+      this.paginator._changePageSize(this.listdataLenght);
+    }
+  }
 
+  @HostListener('window:scroll', ['$event']) // for window scroll events
+  onScroll($event: Event) {
+    console.log('scrolled', $event);
+    console.log($event);
+// In chrome and some browser scroll is given to body tag
+    const pos = (document.documentElement.scrollTop || document.body.scrollTop) + document.documentElement.offsetHeight;
+    const max = document.documentElement.scrollHeight;
+// pos/max will give you the distance between scroll bottom and and bottom of screen in percentage.
+    if (pos === max )   {
+      // Do your action here
+      console.log(pos);
+    }
+  }
 }

@@ -1,0 +1,6 @@
+{
+  "config": {
+    "server": "localhost",
+    "port":  "3000",
+  }
+}
