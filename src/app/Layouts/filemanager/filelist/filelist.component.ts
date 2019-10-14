@@ -38,23 +38,24 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
   }
 
   @Output() refresh = new EventEmitter<{}>();
+  @Output() openInNewTab = new  EventEmitter<{}>();
   @Input() listdata: Data[];
   @Input() loading: boolean;
   @Input() listdataLenght: number;
-  @ViewChild(MatMenuTrigger, {static: true})
   @ViewChild(MatSort, {static: true}) sort: MatSort;
-  contextMenu: MatMenuTrigger;
-  contextMenuPosition = {x: '0px', y: '0px'};
   displayedColumns: string[] = ['select', 'name', 'lastModified', 'birthtime', ];
   selection = new SelectionModel<Data>(true, []);
   paginator: MatPaginator = new MatPaginator(new MatPaginatorIntl(), this.ref);
+  @ViewChild(MatMenuTrigger, {static: true})
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = {x: '0px', y: '0px'};
   dataSource ;
 
-  onContextMenu(event: MouseEvent) {
+  onContextMenu(event: MouseEvent, element: any) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + 'px';
     this.contextMenuPosition.y = event.clientY + 'px';
-    this.contextMenu.menuData = {};
+    this.contextMenu.menuData = {item: element};
     this.contextMenu.openMenu();
   }
 
@@ -70,6 +71,7 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
   browse(element, $event: MouseEvent) {
     $event.stopPropagation();
     if (element.isFile !== true) {
+      console.log('rewbrow:', element.path);
       this.refresh.emit({path: element.path, name: element.name});
     }
   }
@@ -125,5 +127,9 @@ export class FilelistComponent implements OnInit  ,  OnChanges    {
       // Do your action here
       console.log(pos);
     }
+  }
+
+  newTab(item) {
+    this.openInNewTab.emit(item);
   }
 }

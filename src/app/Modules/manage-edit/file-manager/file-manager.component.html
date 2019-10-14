@@ -1,14 +1,18 @@
 <div>
-  <app-toolbar   [loading]="loading" [isBackDisabled]="isBackenabled()" (backevent)="onGoback()"
-               (showHidden)="onShowHidden($event)"></app-toolbar>
-  <mat-tab-group headerPosition="above"    [selectedIndex]="selectedIndex" (selectedTabChange)="onTabChange($event)">
-    <mat-tab [disabled]="loading" label="{{tab.title}}" *ngFor="let tab of tabs |async">
-      <app-filelist *ngIf="showTable"   [listdataLenght]="tab.data.length" [loading]="loading" (refresh)="onRefresh($event)"  [listdata]="tab.data"></app-filelist>
-      <app-filelist-mobile  *ngIf="!showTable"  [loading]="loading" [listData]="tab.data"
+  <app-toolbar [loading]="loading" [isBackDisabled]="isBackenabled()" (backevent)="onGoback()"
+               (showHidden)="onShowHidden($event)" (closTabEvent)="onCLoseTab()"></app-toolbar>
+  <mat-tab-group headerPosition="above" [selectedIndex]="selectedIndex" (selectedTabChange)="onTabChange($event)">
+    <mat-tab [disabled]="loading"  *ngFor="let tab of tabs |async ; index as i  ">
+      <ng-template mat-tab-label>
+        <span>{{tab.title}}</span>
+        <button  *ngIf="i!==0"  (click)="onCLoseTab(i)" mat-button [disabled]="loading"><i class="material-icons">close</i></button>
+      </ng-template>
+      <app-filelist (openInNewTab)="newTab($event)" *ngIf="showTable" [listdataLenght]="tab.data.length" [loading]="loading"
+                    (refresh)="onRefresh($event)" [listdata]="tab.data"></app-filelist>
+      <app-filelist-mobile *ngIf="!showTable" [loading]="loading" (openInNewTab)="newTab($event)" [listData]="tab.data"
                            (refresh)="onRefresh($event)"></app-filelist-mobile>
     </mat-tab>
   </mat-tab-group>
-
 </div>
 
 

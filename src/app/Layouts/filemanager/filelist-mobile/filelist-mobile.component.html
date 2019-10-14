@@ -17,7 +17,7 @@
 <mat-progress-spinner  style="margin-left: 40%"   *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-spinner>
 
     <mat-accordion  *ngIf="!loading && sortedData" multi="true">
-    <mat-expansion-panel style="align-items: center" *ngFor="let file of sortedData ; trackBy:trackByName">
+    <mat-expansion-panel (contextmenu)="onContextMenu($event, file)" style="align-items: center" *ngFor="let file of sortedData ; trackBy:trackByName">
     <mat-expansion-panel-header style="align-items: center">
       <mat-panel-title (click)="browse(file,$event)">
         <button   mat-icon-button >
@@ -43,3 +43,15 @@ Created On {{file.birthtime |date}}
         folder_open
       </i>
     </div>
+<div style="visibility: hidden; position: fixed"
+     [style.left]="contextMenuPosition.x"
+     [style.top]="contextMenuPosition.y"
+     [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent let-item="item">
+    <button mat-menu-item >Delete</button>
+    <button mat-menu-item>Copy</button>
+    <button *ngIf="!item.isFile"  (click)="newTab(item)" mat-menu-item>Open in New Tab</button>
+  </ng-template>
+</mat-menu>

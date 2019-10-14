@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
 import {Data} from '../filelist/filelist.component';
-import { MatSort, } from '@angular/material';
+import {MatMenuTrigger, MatSort,} from '@angular/material';
 
 @Component({
   selector: 'app-filelist-mobile',
@@ -15,7 +15,10 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
   @Input() listData: Data[];
   @Input() loading: boolean;
   @Output() refresh = new EventEmitter<{}>();
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @Output() openInNewTab = new  EventEmitter<{}>();
+  @ViewChild(MatMenuTrigger, {static: true})
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = {x: '0px', y: '0px'};
   sortedData: Data[];
   panelOpenState: boolean;
 
@@ -27,6 +30,13 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
     this.sortedData = this.listData;
   }
 
+  onContextMenu(event: MouseEvent, element: any) {
+    event.preventDefault();
+    this.contextMenuPosition.x = event.clientX + 'px';
+    this.contextMenuPosition.y = event.clientY + 'px';
+    this.contextMenu.menuData = {item: element};
+    this.contextMenu.openMenu();
+  }
 
   browse(element, $event: MouseEvent) {
     $event.stopPropagation();
@@ -38,7 +48,9 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
   trackByName(index, item) {
     return item.name;
   }
-
+  newTab(item) {
+    this.openInNewTab.emit(item);
+  }
   applyFilter($event) {
     if ($event.target.value === '') {
       this.sortedData = this.listData;

@@ -48,9 +48,8 @@ export class ToolbarComponent implements OnInit {
     });
   }
   newTab() {
-    this.tabService.addTabs({title: 'NewTab2', path: 'sf'});
+    this.tabService.addTabs(undefined);
   }
-
 }
 
 
