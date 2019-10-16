@@ -1,7 +1,4 @@
 <div>
-
-
-
   <app-toolbar [loading]="loading" [isBackDisabled]="isBackenabled()" (backevent)="onGoback()"
                (showHidden)="onShowHidden($event)" (closTabEvent)="onCLoseTab()"></app-toolbar>
   <mat-tab-group headerPosition="above" [selectedIndex]="selectedIndex" (selectedTabChange)="onTabChange($event)">

@@ -15,7 +15,6 @@
 <mat-progress-bar  style="width: 100%"   *ngIf="loading" mode="query" color="warn"></mat-progress-bar>
 <mat-divider></mat-divider>
 <mat-progress-spinner  style="margin-left: 40%"   *ngIf="loading" mode="indeterminate" color="accent"></mat-progress-spinner>
-
     <mat-accordion  *ngIf="!loading && sortedData" multi="true">
     <mat-expansion-panel (contextmenu)="onContextMenu($event, file)" style="align-items: center" *ngFor="let file of sortedData ; trackBy:trackByName">
     <mat-expansion-panel-header style="align-items: center">
