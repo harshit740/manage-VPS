@@ -1,6 +1,6 @@
-import {Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild} from '@angular/core';
 import {Data} from '../filelist/filelist.component';
-import {MatMenuTrigger, MatSort,} from '@angular/material';
+import {MatMenuTrigger,} from '@angular/material';
 
 @Component({
   selector: 'app-filelist-mobile',
@@ -26,7 +26,7 @@ export class FilelistMobileComponent implements OnInit , OnChanges {
   ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
+  ngOnChanges(): void {
     this.sortedData = this.listData;
   }
 

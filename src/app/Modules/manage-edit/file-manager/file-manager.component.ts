@@ -40,7 +40,7 @@ export class FileManagerComponent implements OnInit {
 
   onShowHidden($event) {
     this.tabs.getValue()[this.selectedIndex].isHidden = $event.isHidden;
-    this.getFileList(this.tabs.getValue()[this.selectedIndex].currentPath, this.tabs.getValue()[this.selectedIndex].title, $event.isHidden,);
+    this.getFileList(this.tabs.getValue()[this.selectedIndex].currentPath, this.tabs.getValue()[this.selectedIndex].title, $event.isHidden, );
   }
 
   onRefresh($event) {
@@ -49,7 +49,6 @@ export class FileManagerComponent implements OnInit {
     this.tabs.getValue()[this.selectedIndex].previousPathQueue.push(this.tabs.getValue()[this.selectedIndex].currentPath);
     this.getFileList($event.path, this.tabs.getValue()[this.selectedIndex].title, this.tabs.getValue()[this.selectedIndex].isHidden);
   }
-
   isBackenabled() {
     return this.tabs.getValue()[this.selectedIndex].basePath === this.tabs.getValue()[this.selectedIndex].currentPath;
   }

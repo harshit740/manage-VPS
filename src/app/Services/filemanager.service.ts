@@ -9,6 +9,6 @@ export class FilemanagerService {
   constructor(private http: HttpClient) { }
 
   listdata(options) {
-    return this.http.post('http://flux.eastus.cloudapp.azure.com:8000/filemanager/', options);
+    return this.http.post('https://manage.thegeekflux.in/filemanager/', options);
   }
 }
