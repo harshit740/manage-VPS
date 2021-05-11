@@ -10,9 +10,9 @@ import {
   _MatMenuDirectivesModule,
   MatButtonModule,
   MatCheckboxModule,
-  MatDialogModule,
+  MatDialogModule, MatDividerModule, MatExpansionModule,
   MatFormFieldModule,
-  MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatSortModule, MatTableModule,
+  MatIconModule, MatInputModule, MatMenuModule, MatProgressBarModule, MatProgressSpinnerModule, MatSortModule, MatTableModule,
   MatTabsModule,
   MatToolbarModule
 } from '@angular/material';
@@ -35,6 +35,9 @@ import {
     _MatMenuDirectivesModule,
     MatMenuModule,
     MatProgressBarModule,
+    MatDividerModule,
+    MatProgressSpinnerModule,
+    MatExpansionModule
   ],
   exports: [
     FileManagerComponent,

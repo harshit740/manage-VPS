@@ -31,7 +31,7 @@ export class FileManagerComponent implements OnInit {
     const options = {path, isHidden};
     this.tabs.getValue()[this.selectedIndex].currentPath = path;
     this.tabs.getValue()[this.selectedIndex].title = name;
-    this.fileservice.listdata(options).subscribe(res => {
+    this.fileservice.listData(options).subscribe(res => {
         this.tabs.getValue()[this.selectedIndex].data = res;
         this.loading = false;
       }

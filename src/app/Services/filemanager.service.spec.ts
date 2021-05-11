@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { FilemanagerService } from './filemanager.service';
 
-describe('FilemanagerService', () => {
+describe('FilenameService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {

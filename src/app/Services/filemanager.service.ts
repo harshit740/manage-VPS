@@ -8,7 +8,7 @@ export class FilemanagerService {
 
   constructor(private http: HttpClient) { }
 
-  listdata(options) {
-    return this.http.post('https://manage.thegeekflux.in/filemanager/', options);
+  listData(options) {
+    return this.http.post('http://localhost:3000/filemanager/', options);
   }
 }
